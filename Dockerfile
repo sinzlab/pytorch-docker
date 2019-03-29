@@ -52,8 +52,9 @@ RUN pip3 --no-cache-dir install \
          https://download.pytorch.org/whl/cu100/torch-1.0.1.post2-cp36-cp36m-linux_x86_64.whl \
          h5py \
          torchvision \
-         git+https://github.com/datajoint/datajoint-python \
          jupyterlab
+RUN pip3 --no-cache-dir --pre install datajoint
+
 
 # Add profiling library support
 ENV LD_LIBRARY_PATH /usr/local/cuda/extras/CUPTI/lib64:${LD_LIBRARY_PATH}
