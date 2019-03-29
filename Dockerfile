@@ -53,7 +53,7 @@ RUN pip3 --no-cache-dir install \
          h5py \
          torchvision \
          jupyterlab
-RUN pip3 --no-cache-dir --pre install datajoint
+RUN pip3 --no-cache-dir install --pre datajoint
 
 
 # Add profiling library support
