@@ -62,14 +62,6 @@ ENV LD_LIBRARY_PATH /usr/local/cuda/extras/CUPTI/lib64:${LD_LIBRARY_PATH}
 
 # Export port for Jupyter Notebook
 EXPOSE 8888
-RUN jupyter serverextension enable --py jupyterlab --sys-prefix
-
-# Hack to deal with weird bug that prevents running `jupyter notebook` directly
-# from Docker ENTRYPOINT or CMD.
-# Use dumb shell script that runs `jupyter notebook` :(
-# https://github.com/ipython/ipython/issues/7062
-RUN mkdir -p /scripts
-ADD ./run_jupyter.sh /scripts/
 
 # Add Jupyter Notebook config
 ADD ./jupyter_notebook_config.py /root/.jupyter/
@@ -77,4 +69,4 @@ ADD ./jupyter_notebook_config.py /root/.jupyter/
 WORKDIR /notebooks
 
 # By default start running jupyter notebook
-ENTRYPOINT ["/scripts/run_jupyter.sh"]
+ENTRYPOINT ["jupyter", "lab", "--allow-root"]
