@@ -31,8 +31,8 @@ RUN apt-get update &&\
     add-apt-repository -y ppa:deadsnakes/ppa &&\
     apt install -y python3.7 \
                    python3.7-dev &&\
+    python3.7 -m pip install --upgrade pip &&\
     ln -s /usr/bin/python3.7 /usr/local/bin/python &&\
-    ln -s /usr/bin/pip3 /usr/local/bin/pip &&\
     pip install --upgrade pip &&\
     apt-get clean &&\
     # best practice to keep the Docker image lean
