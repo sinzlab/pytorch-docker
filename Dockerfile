@@ -20,8 +20,6 @@ RUN apt-get update &&\
                        pkg-config \
                        libblas-dev \
                        liblapack-dev \
-                       python-dev \
-                       python3-dev \
                        python3-pip \
                        python3-tk \
                        python3-wheel \
@@ -31,9 +29,9 @@ RUN apt-get update &&\
     add-apt-repository -y ppa:deadsnakes/ppa &&\
     apt install -y python3.7 \
                    python3.7-dev &&\
+    # this relinks pip to python3.7 
     python3.7 -m pip install --upgrade pip &&\
     ln -s /usr/bin/python3.7 /usr/local/bin/python &&\
-    pip install --upgrade pip &&\
     apt-get clean &&\
     # best practice to keep the Docker image lean
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
@@ -41,7 +39,7 @@ RUN apt-get update &&\
 WORKDIR /src
 
 # Install essential Python packages
-RUN python3.7 -m pip --no-cache-dir install \
+RUN pip3 --no-cache-dir install \
          pytest \
          numpy \
          matplotlib \
