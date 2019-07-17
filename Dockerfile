@@ -28,7 +28,10 @@ RUN apt-get update &&\
                        graphviz \
                        libhdf5-dev \
                        swig &&\
-    ln -s /usr/bin/python3 /usr/local/bin/python &&\
+    add-apt-repository -y ppa:deadsnakes/ppa &&\
+    apt install -y python3.7 \
+                   python3.7-dev &&\
+    ln -s /usr/bin/python3.7 /usr/local/bin/python &&\
     ln -s /usr/bin/pip3 /usr/local/bin/pip &&\
     pip install --upgrade pip &&\
     apt-get clean &&\
@@ -38,7 +41,7 @@ RUN apt-get update &&\
 WORKDIR /src
 
 # Install essential Python packages
-RUN pip3 --no-cache-dir install \
+RUN python3.7 -m pip --no-cache-dir install \
          pytest \
          numpy \
          matplotlib \
@@ -49,7 +52,7 @@ RUN pip3 --no-cache-dir install \
          seaborn \
          graphviz \
          gpustat \
-         https://download.pytorch.org/whl/cu100/torch-1.0.1.post2-cp36-cp36m-linux_x86_64.whl \
+         https://download.pytorch.org/whl/cu100/torch-1.1.0-cp37-cp37m-linux_x86_64.whl \
          h5py \
          torchvision \
          jupyterlab
