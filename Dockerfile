@@ -20,17 +20,18 @@ RUN apt-get update &&\
                        pkg-config \
                        libblas-dev \
                        liblapack-dev \
-                       python-dev \
-                       python3-dev \
                        python3-pip \
                        python3-tk \
                        python3-wheel \
                        graphviz \
                        libhdf5-dev \
                        swig &&\
-    ln -s /usr/bin/python3 /usr/local/bin/python &&\
-    ln -s /usr/bin/pip3 /usr/local/bin/pip &&\
-    pip install --upgrade pip &&\
+    add-apt-repository -y ppa:deadsnakes/ppa &&\
+    apt install -y python3.7 \
+                   python3.7-dev &&\
+    # this relinks pip to python3.7 
+    python3.7 -m pip install --upgrade pip &&\
+    ln -s /usr/bin/python3.7 /usr/local/bin/python &&\
     apt-get clean &&\
     # best practice to keep the Docker image lean
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
@@ -49,7 +50,7 @@ RUN pip3 --no-cache-dir install \
          seaborn \
          graphviz \
          gpustat \
-         https://download.pytorch.org/whl/cu100/torch-1.0.1.post2-cp36-cp36m-linux_x86_64.whl \
+         https://download.pytorch.org/whl/cu100/torch-1.1.0-cp37-cp37m-linux_x86_64.whl \
          h5py \
          torchvision \
          jupyterlab
@@ -61,14 +62,6 @@ ENV LD_LIBRARY_PATH /usr/local/cuda/extras/CUPTI/lib64:${LD_LIBRARY_PATH}
 
 # Export port for Jupyter Notebook
 EXPOSE 8888
-RUN jupyter serverextension enable --py jupyterlab --sys-prefix
-
-# Hack to deal with weird bug that prevents running `jupyter notebook` directly
-# from Docker ENTRYPOINT or CMD.
-# Use dumb shell script that runs `jupyter notebook` :(
-# https://github.com/ipython/ipython/issues/7062
-RUN mkdir -p /scripts
-ADD ./run_jupyter.sh /scripts/
 
 # Add Jupyter Notebook config
 ADD ./jupyter_notebook_config.py /root/.jupyter/
@@ -76,4 +69,4 @@ ADD ./jupyter_notebook_config.py /root/.jupyter/
 WORKDIR /notebooks
 
 # By default start running jupyter notebook
-ENTRYPOINT ["/scripts/run_jupyter.sh"]
+ENTRYPOINT ["jupyter", "lab", "--allow-root"]
