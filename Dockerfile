@@ -20,7 +20,6 @@ RUN apt-get update &&\
                        pkg-config \
                        libblas-dev \
                        liblapack-dev \
-                       python3-pip \
                        python3-tk \
                        python3-wheel \
                        graphviz \
@@ -29,8 +28,8 @@ RUN apt-get update &&\
     add-apt-repository -y ppa:deadsnakes/ppa &&\
     apt install -y python3.7 \
                    python3.7-dev &&\
-    # this relinks pip to python3.7 
-    python3.7 -m pip install --upgrade pip &&\
+    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py &&\
+    python3.7 get-pip.py &&\
     ln -s /usr/bin/python3.7 /usr/local/bin/python &&\
     ln -s /usr/bin/python3.7 /usr/local/bin/python3 &&\
     apt-get clean &&\
