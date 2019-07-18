@@ -30,6 +30,7 @@ RUN apt-get update &&\
                    python3.7-dev &&\
     curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py &&\
     python3.7 get-pip.py &&\
+    rm get-pip.py &&\
     ln -s /usr/bin/python3.7 /usr/local/bin/python &&\
     ln -s /usr/bin/python3.7 /usr/local/bin/python3 &&\
     apt-get clean &&\
