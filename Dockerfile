@@ -32,6 +32,7 @@ RUN apt-get update &&\
     # this relinks pip to python3.7 
     python3.7 -m pip install --upgrade pip &&\
     ln -s /usr/bin/python3.7 /usr/local/bin/python &&\
+    ln -s /usr/bin/python3.7 /usr/local/bin/python3 &&\
     apt-get clean &&\
     # best practice to keep the Docker image lean
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
