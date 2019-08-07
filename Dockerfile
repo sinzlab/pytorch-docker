@@ -42,6 +42,7 @@ WORKDIR /src
 # Install essential Python packages
 RUN pip3 --no-cache-dir install \
          pytest \
+         pytest-cov \
          numpy \
          matplotlib \
          scipy \
