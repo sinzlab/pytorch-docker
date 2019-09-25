@@ -53,8 +53,9 @@ RUN pip3 --no-cache-dir install \
          seaborn \
          graphviz \
          gpustat \
-         https://download.pytorch.org/whl/cu100/torch-1.1.0-cp37-cp37m-linux_x86_64.whl \
-         h5py \
+         h5py 
+RUN pip3 --no-cache-dir install \
+         torch==1.2.* \
          torchvision \
          jupyterlab
 RUN pip3 --no-cache-dir install --pre datajoint
