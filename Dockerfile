@@ -41,6 +41,7 @@ WORKDIR /src
 
 # Install essential Python packages
 RUN pip3 --no-cache-dir install \
+         blackcellmagic\
          pytest \
          pytest-cov \
          numpy \
