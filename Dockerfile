@@ -35,7 +35,7 @@ RUN apt-get update &&\
     ln -s /usr/bin/python3.7 /usr/local/bin/python3 &&\
     apt-get clean &&\
     # best practice to keep the Docker image lean
-    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* 
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR /src
 
@@ -53,7 +53,8 @@ RUN pip3 --no-cache-dir install \
          seaborn \
          graphviz \
          gpustat \
-         h5py 
+         h5py \
+         gitpython
 RUN pip3 --no-cache-dir install \
          torch==1.2.0 \
          torchvision==0.4.0 \
