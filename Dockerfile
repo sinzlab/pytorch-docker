@@ -59,7 +59,7 @@ RUN pip3 --no-cache-dir install \
          torch==1.2.0 \
          torchvision==0.4.0 \
          jupyterlab
-RUN pip3 --no-cache-dir install datajoint~=0.12.0
+RUN pip3 --no-cache-dir install datajoint==0.12.3
 
 
 # Add profiling library support
