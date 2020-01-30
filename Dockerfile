@@ -24,23 +24,23 @@ RUN apt-get update &&\
                        python3-wheel \
                        graphviz \
                        libhdf5-dev \
+                       python3.8 \
+                       python3.8-dev \
+                       python3.8-distutils \
                        swig &&\
-    add-apt-repository -y ppa:deadsnakes/ppa &&\
-    apt install -y python3.7 \
-                   python3.7-dev &&\
-    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py &&\
-    python3.7 get-pip.py &&\
-    rm get-pip.py &&\
-    ln -s /usr/bin/python3.7 /usr/local/bin/python &&\
-    ln -s /usr/bin/python3.7 /usr/local/bin/python3 &&\
     apt-get clean &&\
+    ln -s /usr/bin/python3.8 /usr/local/bin/python &&\
+    ln -s /usr/bin/python3.8 /usr/local/bin/python3 &&\
+    curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py &&\
+    python3 get-pip.py &&\
+    rm get-pip.py &&\
     # best practice to keep the Docker image lean
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 WORKDIR /src
 
 # Install essential Python packages
-RUN pip3 --no-cache-dir install \
+RUN python3 -m pip --no-cache-dir install \
          blackcellmagic\
          pytest \
          pytest-cov \
@@ -56,11 +56,11 @@ RUN pip3 --no-cache-dir install \
          h5py \
          gitpython \
          Pillow==6.1.0
-RUN pip3 --no-cache-dir install \
-         torch==1.3.1 \
-         torchvision==0.4.2 \
+RUN python3 -m pip --no-cache-dir install \
+         torch==1.4 \
+         torchvision==0.5.0 \
          jupyterlab
-RUN pip3 --no-cache-dir install datajoint==0.12.4
+RUN python3 -m pip --no-cache-dir install datajoint==0.12.4
 
 
 # Add profiling library support
