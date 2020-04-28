@@ -57,8 +57,8 @@ RUN python3 -m pip --no-cache-dir install \
          gitpython \
          Pillow==6.1.0
 RUN python3 -m pip --no-cache-dir install \
-         torch==1.4 \
-         torchvision==0.5.0 \
+         torch==1.5 \
+         torchvision==0.6.0 \
          jupyterlab
 RUN python3 -m pip --no-cache-dir install datajoint==0.12.4
 
