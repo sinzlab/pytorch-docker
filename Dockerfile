@@ -50,6 +50,7 @@ RUN python3 -m pip --no-cache-dir install \
          pandas \
          jupyter \
          scikit-learn \
+         scikit-image \
          seaborn \
          graphviz \
          gpustat \
