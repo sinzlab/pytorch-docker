@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu18.04
+FROM nvidia/cuda:11.0-cudnn8-devel-ubuntu18.04
 LABEL maintainer="Edgar Y. Walker <edgar.walker@gmail.com>"
 
 # Deal with pesky Python 3 encoding issue
@@ -64,7 +64,8 @@ RUN python3 -m pip --no-cache-dir install \
     h5py \
     gitpython \
     ptvsd \
-    Pillow==6.1.0
+    Pillow==6.1.0 \
+    opencv-python
 RUN python3 -m pip --no-cache-dir install \
     torch==1.7.0+cu110 \
     torchvision==0.8.1+cu110 \
