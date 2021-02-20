@@ -71,7 +71,7 @@ RUN python3 -m pip --no-cache-dir install \
     torchvision==0.8.1+cu110 \
     torchaudio===0.7.0 \
     -f https://download.pytorch.org/whl/torch_stable.html \
-    jupyterlab>=2 \
+    'jupyterlab>=2' \
     xeus-python
 
 RUN python3 -m pip --no-cache-dir install datajoint==0.12.7
