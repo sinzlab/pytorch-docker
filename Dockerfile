@@ -1,4 +1,4 @@
-FROM nvidia/cuda:11.1-cudnn8-devel-ubuntu18.04
+FROM nvidia/cuda:11.3.1-cudnn8-devel-ubuntu18.04
 LABEL maintainer="Edgar Y. Walker <edgar.walker@gmail.com>"
 
 # Deal with pesky Python 3 encoding issue
@@ -73,14 +73,14 @@ RUN python3 -m pip --no-cache-dir install \
     Pillow==6.1.0 \
     opencv-python
 RUN python3 -m pip --no-cache-dir install \
-    torch==1.9.0+cu111 \
-    torchvision==0.10.0+cu111 \
-    torchaudio===0.9.0 \
-    -f https://download.pytorch.org/whl/torch_stable.html \
+    torch==1.10.2+cu113 \
+    torchvision==0.11.3+cu113 \
+    torchaudio===0.10.2+cu113 \
+    -f https://download.pytorch.org/whl/cu113/torch_stable.html \
     'jupyterlab>=2' \
     xeus-python
 
-RUN python3 -m pip --no-cache-dir install datajoint==0.12.7
+RUN python3 -m pip --no-cache-dir install datajoint==0.12.9
 
 
 # Add profiling library support
@@ -93,7 +93,7 @@ EXPOSE 8888
 RUN jupyter labextension install @jupyterlab/debugger
 
 # Add Jupyter Notebook config
-ADD ./jupyter_notebook_config.py /root/.jupyter/
+ADD ./jupyter_lab_config.py /root/.jupyter/
 
 WORKDIR /notebooks
 
