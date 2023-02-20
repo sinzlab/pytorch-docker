@@ -859,7 +859,24 @@ c.ServerApp.ip = '0.0.0.0'
 #                        The string should be of the form type:salt:hashed-
 #  password.
 #  Default: ''
-# c.ServerApp.password = ''
+def get_password_hash():
+    import os
+    from jupyter_server.auth import passwd
+
+    try:
+        password = os.environ['JUPYTER_PASSWORD']
+    except KeyError:
+        lines = [
+            '!' * 80,
+            'ERROR: JUPYTER_PASSWORD environment variable not set'.center(80), 
+            '!' * 80
+        ]
+        print('\n' * 2 + '\n'.join(lines) + '\n' * 2)
+        return ''
+    return passwd(password)
+
+
+c.ServerApp.password = get_password_hash()
 
 ## Forces users to use a password for the Jupyter server.
 #                        This is useful in a multi user environment, for instance when
@@ -868,7 +885,7 @@ c.ServerApp.ip = '0.0.0.0'
 #                        In such a case, serving on localhost is not secure since
 #                        any user can connect to the Jupyter server via ssh.
 #  Default: False
-# c.ServerApp.password_required = False
+c.ServerApp.password_required = True
 
 ## The port the server will listen on (env: JUPYTER_PORT).
 #  Default: 0
